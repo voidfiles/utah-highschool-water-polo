@@ -39,7 +39,9 @@ const Home: NextPage<MyProps> = ({ siteData }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Nav teams={teams} selectedTeam={undefined}></Nav>
-      {gamesByWeek.map(GameByWeek)}
+      {gamesByWeek.map((value: [string, Game[]], index: number) => {
+        return GameByWeek(value, index);
+      })}
     </div>
   );
 };

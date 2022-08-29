@@ -6,7 +6,11 @@ import { STYLES } from "./styles";
 import classNameBuilder from "../lib/utils/classNameBuilder";
 import { ST } from "next/dist/shared/lib/utils";
 
-const Combined = ({ game }) => {
+interface CombinedTypes {
+  game: Game;
+}
+
+const Combined = ({ game }: CombinedTypes) => {
   if (game.visitor.combined) {
     return (
       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">

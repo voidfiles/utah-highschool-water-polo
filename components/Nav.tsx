@@ -1,14 +1,20 @@
 import TeamDropdown from "./TeamDropDown";
 import Team from "../lib/models/Team";
 
-const chooseText = (def: string, alt: Team): string => {
+const chooseText = (def: string, alt: Team | undefined): string => {
   if (alt) {
     return "Game Schdule for " + alt.name;
   }
 
   return def;
 };
-const Nav = ({ teams, selectedTeam }) => {
+
+interface NavType {
+  teams: Array<Team>;
+  selectedTeam: Team | undefined;
+}
+
+const Nav = ({ teams, selectedTeam }: NavType) => {
   const boysFilter = (team: Team) => {
     return team.gender == "boys";
   };

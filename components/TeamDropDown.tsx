@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import Team from "../models/Team";
+import Team from "../lib/models/Team";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,7 +28,13 @@ function classNames(...classes: Array<string>) {
   return classes.filter(Boolean).join(" ");
 }
 
-const TeamDropdown = ({ label, teams, filter }) => {
+interface TeamDropdownInput {
+  label: string;
+  teams: Array<Team>;
+  filter: (value: any, index: number, array: any[]) => unknown;
+}
+
+const TeamDropdown = ({ label, teams, filter }: TeamDropdownInput) => {
   let filteredTeams = teams
     .filter(filter)
     .sort((a, b) => {

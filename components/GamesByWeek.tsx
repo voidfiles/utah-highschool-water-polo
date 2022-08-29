@@ -5,7 +5,7 @@ import GamesBySiteDay from "./GamesBySiteDay";
 const GameByWeek = (
   week: [string, Array<Game>],
   i: number,
-  selectedTeam: Team | undefined
+  selectedTeam: Team | undefined = undefined
 ) => {
   const gamesBySiteDay = partitionGames((game: Game) => {
     return game.datetime.format("ddd MMM D") + " at " + game.site.name;
