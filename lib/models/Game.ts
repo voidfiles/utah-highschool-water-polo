@@ -37,7 +37,7 @@ export default class Game {
   finished(): boolean {
     if (
       this.score.trim() == "" ||
-      this.score.trim().toLowerCase() == "EXHIBITION"
+      this.score.trim().toLowerCase() == "exhibition"
     ) {
       return false;
     }
