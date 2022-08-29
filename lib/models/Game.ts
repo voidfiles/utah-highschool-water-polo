@@ -1,5 +1,5 @@
 import { homedir } from "os";
-import moment from 'moment';
+import moment from "moment";
 import Division, { normalizeDivision } from "./Division";
 import Site from "./Site";
 import Team from "./Team";
@@ -34,25 +34,52 @@ export default class Game {
     this.score = score;
   }
 
+  finished(): boolean {
+    if (
+      this.score.trim() == "" ||
+      this.score.trim().toLowerCase() == "EXHIBITION"
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  winner(): string {
+    const matches = /([\d]+)-([\d]+)/.exec(this.score);
+    if (!matches || matches.length == 0) {
+      return "none";
+    }
+    if (parseInt(matches[2], 10) > parseInt(matches[1], 10)) {
+      return "home";
+    }
+
+    if (parseInt(matches[1], 10) > parseInt(matches[2], 10)) {
+      return "visitor";
+    }
+
+    return "none";
+  }
+
   static toObject(game: Game) {
     return {
-        site: {
-            name: game.site.name,
-        },
-        home: {
-            id: game.home.id,
-        },
-        visitor: {
-            id: game.visitor.id,
-        },
-        datetime: game.datetime.toISOString(),
-        number: game.number,
-        divisions: game.divisions.map((d: Division) => {
-            return d.toString()
-        }), 
-        note: game.note,
-        score: game.score,
-    }
+      site: {
+        name: game.site.name,
+      },
+      home: {
+        id: game.home.id,
+      },
+      visitor: {
+        id: game.visitor.id,
+      },
+      datetime: game.datetime.toISOString(),
+      number: game.number,
+      divisions: game.divisions.map((d: Division) => {
+        return d.toString();
+      }),
+      note: game.note,
+      score: game.score,
+    };
   }
 
   static fromObject(game: any): Game {
@@ -69,7 +96,7 @@ export default class Game {
         return normalizeDivision(d);
       }),
       game.note,
-      game.score,
-    )
+      game.score
+    );
   }
 }

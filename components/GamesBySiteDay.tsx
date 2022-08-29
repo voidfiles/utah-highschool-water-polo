@@ -32,7 +32,7 @@ const GamesBySiteDay = (
             className={classNameBuilder(
               STYLES.header,
               STYLES["table.td"],
-              STYLES["col.sm"]
+              STYLES["col.xs"]
             )}
           >
             Division

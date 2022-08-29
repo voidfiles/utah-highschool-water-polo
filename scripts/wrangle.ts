@@ -2,7 +2,7 @@ import moment from "moment";
 import Team from "../lib/models/Team";
 import Game from "../lib/models/Game";
 import Site from "../lib/models/Site";
-import Division, {normalizeDivision} from "../lib/models/Division";
+import Division, { normalizeDivision } from "../lib/models/Division";
 
 let fs = require("fs");
 let { parse } = require("csv-parse");
@@ -143,10 +143,9 @@ const IGNORE_TEAM_NAMES = [
   ],
 ];
 
-
 // 0 HS Boys 1,
 // 1 6:45 PM,
-// 2 Woods Cross, # Visitor
+// 2 Woods Cross, # visitor
 // 3 Olympus, # home
 // 4 5A,
 // 5 10-19,
@@ -225,15 +224,17 @@ const parseGameRow = (dayDate: DayDate, row: Array<string>): Game => {
     }
   });
   const siteData = {
-    games: games.map((game: Game) => { return Game.toObject(game) }),
+    games: games.map((game: Game) => {
+      return Game.toObject(game);
+    }),
     teams: Object.values(Team.items).map((team: Team) => {
       return Team.toObject(team);
     }),
     sites: Object.values(Site.items).map((site: Site) => {
       return Site.toObject(site);
-    })
-  }
-fs.writeFileSync("./public/data.json", JSON.stringify(siteData));
+    }),
+  };
+  fs.writeFileSync("./public/data.json", JSON.stringify(siteData));
 })();
 
 export {};

@@ -36,11 +36,14 @@ const highlightSelectedTeam = (
 
 const GameRow = (game: Game, selectedTeam: Team | undefined) => {
   return (
-    <div key={game.number} className="w-full flex">
+    <div
+      key={game.number}
+      className={"w-full flex " + (game.finished() ? "bg-blue-100" : "")}
+    >
       <div className={classNameBuilder(STYLES["table.td"], STYLES["col.sm"])}>
         <a title={game.number}>{game.datetime.format("LT")}</a>
       </div>
-      <div className={classNameBuilder(STYLES["table.td"], STYLES["col.sm"])}>
+      <div className={classNameBuilder(STYLES["table.td"], STYLES["col.xs"])}>
         {game.visitor.gender}
         <Combined game={game}></Combined>
       </div>
@@ -55,14 +58,21 @@ const GameRow = (game: Game, selectedTeam: Team | undefined) => {
         <div className="flex items-center justify-start">
           <div className="w-[32px] h-[32px] inline-block">
             <Image
-              src={game.home.imageUrl()}
+              src={game.visitor.imageUrl()}
               alt="icon"
               layout="fixed"
               width={32}
               height={32}
             ></Image>
           </div>
-          <div className="pl-1 hidden md:inline-block">{game.home.name}</div>
+          <div
+            className={
+              "pl-1 hidden sm:inline-block " +
+              (game.winner() == "visitor" ? "font-semibold" : "")
+            }
+          >
+            {game.visitor.name}
+          </div>
         </div>
       </div>
       <div
@@ -76,14 +86,21 @@ const GameRow = (game: Game, selectedTeam: Team | undefined) => {
         <div className="flex items-center justify-start align-middle ">
           <div className="w-[32px] h-[32px] inline-block">
             <Image
-              src={game.visitor.imageUrl()}
+              src={game.home.imageUrl()}
               alt="icon"
               layout="fixed"
               width={32}
               height={32}
             ></Image>
           </div>
-          <div className="pl-1 hidden md:inline-block">{game.visitor.name}</div>
+          <div
+            className={
+              "pl-1 hidden sm:inline-block " +
+              (game.winner() == "home" ? "font-semibold" : "")
+            }
+          >
+            {game.home.name}
+          </div>
         </div>
       </div>
       <div
