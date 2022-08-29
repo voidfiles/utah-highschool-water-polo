@@ -1,0 +1,21 @@
+name: Update All the things
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15,30,45,0 * * * *"
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "16.3.0"
+      - name: Yarn stuff
+        run: yarn
+      - name: Prompt deploy
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+          git commit --allow-empty -m "Prompt Deploy"
+          git push origin main
